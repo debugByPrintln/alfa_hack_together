@@ -1,0 +1,9 @@
+[submodule "back_alfa"]
+	path = back_alfa
+	url = https://github.com/debugByPrintln/recommendation-signature-server
+[submodule "front_alfa"]
+	path = front_alfa
+	url = https://github.com/IlushaSPB/front_alf_hack
+[submodule "model_alfa"]
+	path = model_alfa
+	url = https://gitlab.com/Xnppl/ml_service_for_alpha_hackaton
