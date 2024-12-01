@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   ml-service:
-    build: .
+    build: ./model_alfa
     container_name: ml_service
     ports:
       - "8000:80"
@@ -10,22 +10,28 @@ services:
       - app_network
 
   back-java:
-    image: back_java_image:latest
+    build: ./back_alfa
     container_name: back_java_service
     ports:
       - "8080:8080"
     networks:
       - app_network
-    depends_on:
-      - ml-service
+
+  front-react:
+    build: ./front_alfa
+    container_name: front_react
+    ports:
+      - "5000:80"
+    networks:
+      - app_network
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - "9090:9090" # Expose Prometheus server
+      - "9090:9090"
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml # Map configuration
+      - ./back_alfa/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - app_network
     depends_on:
