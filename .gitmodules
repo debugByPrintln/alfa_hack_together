@@ -1,6 +1,6 @@
 [submodule "back_alfa"]
 	path = back_alfa
-	url = https://github.com/debugByPrintln/back_alfa
+	url = https://github.com/debugByPrintln/recommendation-signature-server
 [submodule "front_alfa"]
 	path = front_alfa
 	url = https://github.com/IlushaSPB/front_alf_hack
