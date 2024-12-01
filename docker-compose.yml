@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  ml-service:
+    build: .
+    container_name: ml_service
+    ports:
+      - "8000:80"
+    networks:
+      - app_network
+
+  back-java:
+    image: back_java_image:latest
+    container_name: back_java_service
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
+    depends_on:
+      - ml-service
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090" # Expose Prometheus server
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml # Map configuration
+    networks:
+      - app_network
+    depends_on:
+      - back-java
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000" # Expose Grafana UI
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - app_network
+    depends_on:
+      - prometheus
+
+networks:
+  app_network:
+    driver: bridge
